@@ -5,12 +5,59 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Portfolio</title>
     <link rel="stylesheet" href="Gavriel.IO.CSS">
+
 </head>
 <body>
-    <section id="welcome-section" class="welcome-section">
-        <h1>welcome to my portfolio website</h1
-    </section>
+  <!-- Button to reveal the portfolio -->
+  <button id="reveal-btn">Catch Me to See My Portfolio</button>
 
+  <!-- Hidden portfolio content -->
+  <div id="portfolio-content">
+    <h1 class="welcome-text">Welcome to My Portfolio</h1>
+    <!-- Add more content here -->
+  </div>
 
+  <script>
+    const button = document.getElementById('reveal-btn');
+    const content = document.getElementById('portfolio-content');
+
+    // Initialize position and velocity
+    let x = window.innerWidth / 2;
+    let y = window.innerHeight / 2;
+    let vx = 3; // Horizontal velocity
+    let vy = 3; // Vertical velocity
+
+    // Set the button's initial position
+    button.style.left = `${x}px`;
+    button.style.top = `${y}px`;
+
+    // Function to move the button
+    function moveButton() {
+      x += vx;
+      y += vy;
+
+      // Bounce off the walls
+      if (x <= 0 || x >= window.innerWidth - button.offsetWidth) {
+        vx = -vx; // Reverse horizontal direction
+      }
+      if (y <= 0 || y >= window.innerHeight - button.offsetHeight) {
+        vy = -vy; // Reverse vertical direction
+      }
+
+      // Update the button's position
+      button.style.left = `${x}px`;
+      button.style.top = `${y}px`;
+    }
+
+    // Move the button at a consistent interval
+    const interval = setInterval(moveButton, 16); // ~60fps
+
+    // Show content and stop movement on click
+    button.addEventListener('click', () => {
+      content.style.display = 'block';
+      button.style.display = 'none';
+      clearInterval(interval); // Stop the movement
+    });
+  </script>
 </body>
 </html>
